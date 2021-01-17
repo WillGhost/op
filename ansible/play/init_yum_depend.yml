@@ -1,0 +1,47 @@
+---
+- hosts: '{{ target }}'
+  tasks:
+    - name: yum install epel-release
+      yum: name=epel-release state=latest
+    - name: yum install for _general
+      yum: pkg={{item}} state=installed
+      with_items:
+        - tree
+        - vim
+        - lrzsz
+        - gcc
+        - gcc-c++
+        - make
+        - zip
+        - unzip
+        - wget
+        - curl
+        - git
+        - openssl-devel
+        - telnet
+        - tmux
+        - screen
+    - name: yum install for _python
+      yum: pkg={{item}} state=installed
+      with_items:
+        - libxml2-devel
+        - python-m2ext
+        - libjpeg-turbo-devel
+        - bzip2-devel
+        - libxslt-devel
+        - httpd-tools
+    - name: yum install for _hydra
+      yum: pkg={{item}} state=installed
+      with_items:
+        - libxml2-devel
+        - python-m2ext
+        - libjpeg-turbo-devel
+        - libxslt-devel
+        - python-pip
+        - python-devel
+        - python-virtualenv
+        - binutils
+        - proj-devel
+        - gdal-devel
+        - sqlite-devel
+

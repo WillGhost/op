@@ -1,0 +1,15 @@
+---
+- hosts: '{{ target }}'
+  tasks:
+    - name: update nginx.conf
+      copy: src=../remote_root/opt/nginx/conf/nginx.conf  dest=/opt/nginx/conf/nginx.conf
+      notify:  
+        - reload
+    - name: update ip.conf
+      copy: src=../remote_root/opt/nginx/conf/vhosts/ip.conf  dest=/opt/nginx/conf/vhosts/ip.conf
+      notify:  
+        - reload
+  handlers:
+    - name: reload
+      command: /opt/nginx/sbin/nginx -s reload
+

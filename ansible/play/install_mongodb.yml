@@ -1,0 +1,16 @@
+---
+- hosts: '{{ target }}'
+  vars:
+    mongodb_version: 3.0.7
+  tasks:
+    - name: scp
+      copy: src=../packages/mongodb-linux-x86_64-rhel70-{{ mongodb_version }}.tgz  dest=/tmp
+    - name: untar
+      command: tar zxf mongodb-linux-x86_64-rhel70-{{ mongodb_version }}.tgz chdir=/tmp
+    - name: rm
+      command: rm -fr /opt/mongodb
+    - name: mv
+      command: mv /tmp/mongodb-linux-x86_64-rhel70-{{ mongodb_version }} /opt/mongodb
+    - name: set path
+      shell: echo 'PATH=$PATH:/opt/mongodb/bin' > /etc/profile.d/mongodb.sh
+

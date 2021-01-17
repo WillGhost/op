@@ -1,0 +1,18 @@
+---
+- hosts: '{{ target }}'
+  vars:
+    redis_version: 3.0.5
+  tasks:
+    - name: scp
+      copy: src=../packages/redis-{{ redis_version }}.tar.gz dest=/tmp
+    - name: untar
+      command: tar zxf redis-{{ redis_version }}.tar.gz chdir=/tmp
+    - name: rm
+      command: rm -fr /opt/redis
+    - name: mv
+      command: mv /tmp/redis-{{ redis_version }} /opt/redis
+    - name: make
+      command: make chdir=/opt/redis
+    - name: set path
+      shell: echo 'PATH=$PATH:/opt/redis/src' > /etc/profile.d/redis.sh
+

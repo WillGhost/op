@@ -1,0 +1,11 @@
+---
+- hosts: micro
+  tasks:
+    - name: update vhosts
+      copy: src=../remote_root/opt/nginx/conf/vhosts/wechat.conf  dest=/opt/nginx/conf/vhosts/wechat.conf
+      notify:  
+        - reload
+  handlers:
+    - name: reload
+      command: /opt/nginx/sbin/nginx -s reload
+

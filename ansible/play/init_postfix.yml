@@ -1,0 +1,10 @@
+---
+- hosts: '{{ target }}'
+  tasks:
+    - name: scp main.cf
+      copy: src=../remote_root/etc/postfix/main.cf dest=/etc/postfix/main.cf 
+    - name: systemctl restart postfix
+      command: systemctl restart postfix
+    - name: systemctl enable postfix
+      command: systemctl enable postfix
+

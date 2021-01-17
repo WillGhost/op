@@ -1,0 +1,29 @@
+---
+- hosts: '{{ target }}'
+  tasks:
+    - name: yum install readline
+      yum: pkg={{item}} state=installed
+      with_items:
+        - readline-devel
+        - gcc
+        - make
+        - wget
+        - openssl-devel
+        - bzip2-devel
+    - name: scp
+      copy: src=../packages/Python-2.7.10.tgz  dest=/tmp
+    - name: rm
+      command: rm -fr /opt/python2710 /tmp/Python-2.7.10 /opt/python2711
+    - name: untar
+      command: tar zxf Python-2.7.10.tgz chdir=/tmp
+    - name: configue
+      command: ./configure --prefix=/opt/python2710 chdir=/tmp/Python-2.7.10
+    - name: make
+      command: make -j 2 chdir=/tmp/Python-2.7.10
+    - name: make install
+      command: make install chdir=/tmp/Python-2.7.10
+    - name: alias virtulenv
+      shell: echo "alias virtualenv='virtualenv -p /opt/python2710/bin/python'" > /etc/profile.d/virtualenv.sh
+    - name: update pip
+      command: pip install -U -q pip
+

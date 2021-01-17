@@ -1,0 +1,19 @@
+---
+- hosts: '{{ target }}'
+  tasks:
+    - name: set hostname
+      hostname:
+        name: '{{ inventory_hostname }}'
+#    - name: yum update
+#      yum: name=* state=latest
+    - name: push /etc/profile.d/xiaohe.sh
+      copy: src=../remote_root/etc/profile.d/xiaohe.sh dest=/etc/profile.d/xiaohe.sh
+#    - name: push /etc/security/limits.d/20-nproc.conf
+#      copy: src=../remote_root/etc/security/limits.d/20-nproc.conf dest=/etc/security/limits.d/20-nproc.conf
+    - name: push /etc/vimrc
+      copy: src=../remote_root/etc/vimrc dest=/etc/vimrc
+    - name: push sudo
+      copy: src=../remote_root/etc/sudoers dest=/etc/sudoers mode=440
+    - name: push hosts
+      copy: src=../remote_root/etc/hosts dest=/etc/hosts
+

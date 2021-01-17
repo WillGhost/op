@@ -1,0 +1,17 @@
+#
+[earth]
+vps_JP      ansible_ssh_host="106.186.29.24"
+vps_KR      ansible_ssh_host="52.79.38.130"
+
+[haha]
+cc          ansible_ssh_host="10.171.12.49"
+cc2         ansible_ssh_host="10.25.94.135"
+cc3         ansible_ssh_host="10.172.84.40"
+#cc4         ansible_ssh_host="10.172.156.72"
+
+[haha:vars]
+ansible_ssh_pass="000000keFuaw"
+
+[earth:vars]
+ansible_ssh_port=3724
+

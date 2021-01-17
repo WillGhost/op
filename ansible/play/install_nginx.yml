@@ -1,0 +1,30 @@
+---
+- hosts: '{{ target }}'
+  vars:
+    version: 1.6.3
+  tasks:
+    - name: yum install openssl
+      command: yum install -y -q pcre-devel openssl-devel gcc make
+    - name: scp
+      copy: src=../packages/nginx-{{ version }}.tar.gz  dest=/tmp
+    - name: rm
+      command: rm -fr /opt/nginx /tmp/nginx-{{ version }}
+    - name: untar
+      command: tar zxf nginx-{{ version }}.tar.gz chdir=/tmp
+    - name: configue
+      command: ./configure --prefix=/opt/nginx --with-http_ssl_module --with-http_stub_status_module --with-http_realip_module --with-http_gzip_static_module chdir=/tmp/nginx-{{ version }}
+    - name: make
+      command: make -j 2 chdir=/tmp/nginx-{{ version }}
+    - name: make install
+      command: make install chdir=/tmp/nginx-{{ version }}
+    - name: mkdir vhosts
+      file: path=/opt/nginx/conf/vhosts state=directory
+    - name: mkdir logs
+      file: path=/data/logs/nginx state=directory recurse=yes
+    - name: set conf
+      copy: src=../remote_root/opt/nginx/conf/nginx.conf dest=/opt/nginx/conf/nginx.conf
+    - name: start nginx
+      command: /opt/nginx/sbin/nginx
+    - name: set auto start
+      shell: grep nginx /etc/rc.local || echo '/opt/nginx/sbin/nginx' >> /etc/rc.local
+

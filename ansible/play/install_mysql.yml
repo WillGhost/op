@@ -1,0 +1,11 @@
+---
+- hosts: '{{ target }}'
+  vars:
+    redis_version: 3.0.5
+  tasks:
+    - name: install yum repository
+      command: rpm -U --quiet http://dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm
+      ignore_errors: True
+    - name: install mysql-client
+      command: yum install -q -y mysql-community-devel mysql-community-client
+

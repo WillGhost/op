@@ -1,0 +1,19 @@
+---
+- hosts: '{{ target }}'
+  tasks:
+    - name: set hostname
+      hostname:
+        name: '{{ inventory_hostname }}'
+    - name: yum update
+      yum: name=* state=latest
+    - name: push /etc/profile.d/xiaohe.sh
+      copy: src=../remote_root/etc/profile.d/xiaohe.sh dest=/etc/profile.d/xiaohe.sh
+    - name: push /etc/ssh/ssh_config
+      copy: src=../remote_root/etc/ssh/ssh_config dest=/etc/ssh/ssh_config
+    - name: push /etc/ssh/sshd_config
+      copy: src=../remote_root/etc/ssh/sshd_config dest=/etc/ssh/sshd_config
+    - name: push /etc/vimrc
+      copy: src=../remote_root/etc/vimrc dest=/etc/vimrc
+    - name: enable /etc/rc.local
+      file: path=/etc/rc.d/rc.local mode=a+x
+
