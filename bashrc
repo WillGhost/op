@@ -1,5 +1,7 @@
+
+# 历史命令
 bind '"\e[A":history-search-backward'
 bind '"\e[B":history-search-forward'
 
-export TERM='xterm-256color'
+#export TERM='xterm-256color'
 
