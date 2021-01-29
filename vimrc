@@ -8,7 +8,9 @@ call plug#end()
 
 "vim-go插件快捷键
 au FileType go nmap <C-d> <Plug>(go-def-vertical)
-nmap <C-f> :GoFmt <cr>
+au FileType go nmap <C-f> :GoFmt <cr>
+au FileType go nmap <C-e> :GoReferrers <cr>
+
 
 "启动括号颜色
 let g:rainbow_active = 1
