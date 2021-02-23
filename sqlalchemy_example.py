@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #conding:utf-8
 
 from sqlalchemy import create_engine, Table, MetaData, desc
@@ -6,6 +6,7 @@ from sqlalchemy.sql import select, and_, or_, not_, text
 
 
 MYSQL_HOST = '127.0.0.1'
+MYSQL_PORT = 3306
 MYSQL_USER = 'root'
 MYSQL_PWD = 'wefwef'
 MYSQL_DBN = 'hergerg'
@@ -13,7 +14,11 @@ MYSQL_DBN = 'hergerg'
 DRIVE_PRE = 'mysql+mysqldb'
 #DRIVE_PRE = 'mysql+mysqlconnector'
 
-engine = create_engine('%s://%s:%s@%s/%s'%(DRIVE_PRE, MYSQL_USER, MYSQL_PWD, MYSQL_HOST, MYSQL_DBN), encoding='utf8', connect_args={'charset':'utf8'}, echo=1,)
+engine = create_engine('%s://%s:%s@%s:%s/%s' % (
+            DRIVE_PRE, MYSQL_USER, MYSQL_PWD, MYSQL_HOST, MYSQL_PORT, MYSQL_DBN
+        ),
+        encoding='utf8', connect_args={'charset':'utf8'}, echo=0,
+    )
 
 conn = engine.connect()
 metadata=MetaData()
@@ -49,28 +54,27 @@ def offset():
         offs += STE
 
         for _ in rows:
-            print _
+            print(_)
 
 
 def nbtext():
     sql = text('''select * from your_table_name where name = :x ''')
     rows = conn.execute(sql, x='6wef')
+    print(rows.rowcount)
     for row in rows:
-        print row
+        print(row)
 
 
 
 def show_tables():
     metadata.reflect(engine)
-    print metadata.tables.keys()
+    print(metadata.tables.keys())
 
 
 
 
 
 if __name__ == '__main__':
-    pass
-    #offset()
     nbtext()
 
 
