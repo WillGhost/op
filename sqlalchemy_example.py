@@ -3,7 +3,7 @@
 
 from sqlalchemy import create_engine, Table, MetaData, desc
 from sqlalchemy.sql import select, and_, or_, not_, text
-
+from sqlalchemy.exc import OperationalError
 
 MYSQL_HOST = '127.0.0.1'
 MYSQL_PORT = 3306
@@ -15,13 +15,24 @@ DRIVE_PRE = 'mysql+mysqldb'
 #DRIVE_PRE = 'mysql+mysqlconnector'
 
 engine = create_engine('%s://%s:%s@%s:%s/%s' % (
-            DRIVE_PRE, MYSQL_USER, MYSQL_PWD, MYSQL_HOST, MYSQL_PORT, MYSQL_DBN
-        ),
-        encoding='utf8', connect_args={'charset':'utf8'}, echo=0,
-    )
+        DRIVE_PRE, MYSQL_USER, MYSQL_PWD, MYSQL_HOST, MYSQL_PORT, MYSQL_DBN
+    ),
+    encoding='utf8', connect_args={'charset':'utf8'}, echo=0,
+)
 
 conn = engine.connect()
 metadata=MetaData()
+
+
+def execute(*arg, **kw):
+    global conn
+    try:
+        conn.execute('select 1')
+    except OperationalError as e:
+        print('reconnect', e)
+        conn = engine.connect()
+    rows = conn.execute(*arg, **kw)
+    return rows
 
 
 tlod = Table('your_table_name', metadata, autoload=True, autoload_with=engine)
@@ -59,7 +70,7 @@ def offset():
 
 def nbtext():
     sql = text('''select * from your_table_name where name = :x ''')
-    rows = conn.execute(sql, x='6wef')
+    rows = execute(sql, x='6wef')
     print(rows.rowcount)
     for row in rows:
         print(row)
