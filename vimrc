@@ -16,6 +16,8 @@ au FileType go nmap <C-e> :GoReferrers <cr>
 let g:rainbow_active = 1
 
 
+"=======================
+
 "语法高亮
 syntax on
 filetype on
