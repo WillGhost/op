@@ -10,8 +10,9 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list \
   && apt install tzdata
 
 
-RUN apt install -y lrzsz tree vim dnsutils zip unzip wget curl git telnet sysstat tar less \
-  mysql-client redis librdkafka-dev libmysqlclient-dev libmysqlclient-dev \
+RUN apt install -y lrzsz tree vim dnsutils zip unzip wget curl git telnet sysstat tar less ping \
+  mysql-client libmysqlclient-dev reids \
+  librdkafka-dev \
   python3 python3-dev python3-pip
 
 RUN curl -s https://cdn.jsdelivr.net/gh/WillGhost/op@master/vimrc > /tmp/vimrc && \
@@ -30,6 +31,8 @@ RUN pip3 install requests && \
   pip3 install mysqlclient && \
   pip3 install sqlalchemy && \
   pip3 install elasticsearch && \
+  pip3 install numpy && \
+  pip3 install matplotlib && \
   pip3 install kafka-python
 
 RUN apt install -y default-jre && \

@@ -27,11 +27,12 @@ set ts=4
 set shiftwidth=4
 set ignorecase
 
-set hlsearch
+set hlsearch  "搜索高亮
 set ruler
-set scrolloff=5
-set wildmenu
+set scrolloff=5  "上下5行
+set wildmenu   "vs不全
 set wildmode=longest:list,full
+set nocompatible  "不兼容历史
 
 command WQ wq
 command Wq wq
