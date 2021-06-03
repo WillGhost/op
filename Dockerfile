@@ -7,7 +7,7 @@ ENV TZ=Asia/Shanghai
 RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list \
   && apt update \
   && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
-  && apt install tzdata
+  && apt install -y tzdata
 
 
 RUN apt install -y lrzsz tree vim dnsutils zip unzip wget curl git telnet sysstat tar less iputils-ping iproute2 \
