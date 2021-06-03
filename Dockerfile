@@ -10,8 +10,8 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list \
   && apt install tzdata
 
 
-RUN apt install -y lrzsz tree vim dnsutils zip unzip wget curl git telnet sysstat tar less ping \
-  mysql-client libmysqlclient-dev reids \
+RUN apt install -y lrzsz tree vim dnsutils zip unzip wget curl git telnet sysstat tar less iputils-ping \
+  mysql-client libmysqlclient-dev redis \
   librdkafka-dev \
   python3 python3-dev python3-pip
 
@@ -39,5 +39,4 @@ RUN apt install -y default-jre && \
   wget -q https://mirrors.tuna.tsinghua.edu.cn/apache/kafka/2.7.0/kafka_2.12-2.7.0.tgz && \
   tar zxf kafka_2.12-2.7.0.tgz && \
   mv kafka_2.12-2.7.0 /opt/kafka && \
-  rm -f kafka_2.12-2.7.0.tgz
-
+  rm -f kafka_1.12-2.7.0.tgz
