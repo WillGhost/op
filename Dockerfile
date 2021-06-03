@@ -10,7 +10,7 @@ RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list \
   && apt install tzdata
 
 
-RUN apt install -y lrzsz tree vim dnsutils zip unzip wget curl git telnet sysstat tar less iputils-ping \
+RUN apt install -y lrzsz tree vim dnsutils zip unzip wget curl git telnet sysstat tar less iputils-ping iproute2 \
   mysql-client libmysqlclient-dev redis \
   librdkafka-dev \
   python3 python3-dev python3-pip
