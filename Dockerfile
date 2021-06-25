@@ -19,7 +19,7 @@ RUN curl -s -o /tmp/vimrc https://cdn.jsdelivr.net/gh/WillGhost/op@master/vimrc 
   grep -n =========== /tmp/vimrc |awk -F: '{print $1}' |xargs -I {} sed -n '{},1000p' /tmp/vimrc > ~/.vimrc && \
   rm -f /tmp/vimrc
 
-RUN curl -s -o ~/.bashrc https://cdn.jsdelivr.net/gh/WillGhost/op@master/bashrc
+RUN curl -s https://cdn.jsdelivr.net/gh/WillGhost/op@master/bashrc >> ~/.bashrc
 
 RUN wget -q https://gomirrors.org/dl/go/go1.16.3.linux-amd64.tar.gz && \
   rm -rf /usr/local/go && tar -C /usr/local -xzf go1.16.3.linux-amd64.tar.gz && \
