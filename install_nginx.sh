@@ -1,9 +1,11 @@
 #!/bin/bash
 
 installdir="/opt/nginx"
-version=1.16.1
+version=1.18.0
 
-dnf -yq pcre-devel openssl-devel gcc make wget
+#dnf -yq pcre-devel openssl-devel gcc make wget
+
+apt install -yq gcc wget libpcre3-dev libssl-dev zlib1g-dev make
 
 cd /tmp
 wget -q  http://nginx.org/download/nginx-$version.tar.gz
