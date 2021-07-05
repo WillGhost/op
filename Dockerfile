@@ -5,12 +5,13 @@ ENV LANG=C.UTF-8
 ENV TZ=Asia/Shanghai
 
 RUN sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list \
-  && apt update \
+  && apt update -q \
   && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone \
-  && apt install -y tzdata
+  && apt install -yq tzdata
 
 
-RUN apt install -y lrzsz tree vim dnsutils zip unzip wget curl git telnet sysstat tar less iputils-ping iproute2 \
+RUN apt install -yq lrzsz tree vim dnsutils zip unzip wget curl git telnet sysstat tar less iputils-ping iproute2 \
+  screen tmux \
   mysql-client libmysqlclient-dev redis \
   librdkafka-dev \
   python3 python3-dev python3-pip
@@ -35,8 +36,8 @@ RUN pip3 install requests && \
   pip3 install matplotlib && \
   pip3 install kafka-python
 
-RUN apt install -y default-jre && \
+RUN apt install -qy default-jre && \
   wget -q https://mirrors.tuna.tsinghua.edu.cn/apache/kafka/2.7.0/kafka_2.12-2.7.0.tgz && \
   tar zxf kafka_2.12-2.7.0.tgz && \
   mv kafka_2.12-2.7.0 /opt/kafka && \
-  rm -f kafka_1.12-2.7.0.tgz
+  rm -f kafka_2.12-2.7.0.tgz
