@@ -30,4 +30,4 @@ mkdir /root/.pip/ && echo '[global]\nindex-url = https://mirrors.aliyun.com/pypi
 
 touch /etc/rc.local
 chmod +x /etc/rc.local
-
+systemctl enable rc-local
