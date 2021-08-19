@@ -22,7 +22,7 @@ let g:rainbow_active = 1
 syntax on
 filetype on
 
-"set expandtab
+set expandtab
 set ts=4
 set shiftwidth=4
 set ignorecase
