@@ -29,7 +29,7 @@ curl -s -o /tmp/bashrc https://cdn.jsdelivr.net/gh/WillGhost/op/bashrc && \
 mkdir /root/.pip/ && echo '[global]\nindex-url = https://mirrors.aliyun.com/pypi/simple' > ~/.pip/pip.conf
 #pip3 install ipython && \
 
-touch /etc/rc.local
+ls /etc/rc.local || echo "#!/usr/bin/bash" > /etc/rc.local
 chmod +x /etc/rc.local
 systemctl enable rc-local
 
