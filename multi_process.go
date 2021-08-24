@@ -9,12 +9,8 @@ import (
 var wg sync.WaitGroup
 
 func DoWork(cc chan int) {
-	for {
-		a, ok := <-cc
-		if !ok {
-			break
-		}
-		fmt.Println("wwwwwww", a)
+	for v := range cc {
+		fmt.Println("wwwwwww", v)
 		time.Sleep(time.Second)
 	}
 	wg.Done()
