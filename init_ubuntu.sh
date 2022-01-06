@@ -12,7 +12,9 @@ apt install -y tzdata
 
 
 apt install -y lrzsz tree vim dnsutils zip unzip wget curl git telnet sysstat tar less iputils-ping iproute2 \
-  python3 python3-dev python3-pip
+  python3 python3-dev python3-pip \
+  mysql-client libmysqlclient-dev \
+  screen tmux
 
 curl -s -o /tmp/vimrc https://cdn.jsdelivr.net/gh/WillGhost/op/vimrc && \
   grep -n =========== /tmp/vimrc |awk -F: '{print $1}' |xargs -I {} sed -n '{},1000p' /tmp/vimrc > ~/.vimrc && \
