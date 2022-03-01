@@ -3,6 +3,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'luochen1990/rainbow'
+“Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
 
@@ -49,3 +50,6 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 set nosmartindent
 set noautoindent
 filetype indent off
+
+“set backspace=2 " 解决插入模式下delete/backspce键失效问题
+”set completeopt-=preview "关闭YCM顶部预览
