@@ -9,7 +9,8 @@ call plug#end()
 
 "vim-go插件快捷键
 au FileType go nmap <C-d> <Plug>(go-def-vertical)
-au FileType go nmap <C-f> :GoFmt <cr>
+au FileType go nmap <C-f> <Plug>(go-implements)
+"au FileType go nmap <C-f> :GoImplements <cr>
 au FileType go nmap <C-e> :GoReferrers <cr>
 
 
