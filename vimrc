@@ -20,6 +20,9 @@ let g:rainbow_active = 1
 
 "=======================
 
+"复制到内存
+map ; "+y
+
 "语法高亮
 syntax on
 filetype on
