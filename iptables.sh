@@ -24,4 +24,4 @@ ip6tables -A INPUT -p ipv6-icmp -j ACCEPT
 #ip6tables -A INPUT -p tcp --dport 22 -j ACCEPT
 ip6tables -A INPUT -j REJECT
 
-
+iptables -t nat -A PREROUTING  -p udp --dport 40000:50000 -j DNAT --to-destination :443
