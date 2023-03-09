@@ -5,8 +5,9 @@ export LANG=C.UTF-8
 
 #sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
 
-apt update 
-apt install -y tzdata
+apt update
+apt upgrade
+#apt install -y tzdata
 ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
 
 
