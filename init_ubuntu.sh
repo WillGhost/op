@@ -6,12 +6,13 @@ export LANG=C.UTF-8
 #sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
 
 apt update
-apt upgrade
+#apt upgrade
 #apt install -y tzdata
 ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
 
 
-apt install -y lrzsz tree vim dnsutils zip unzip wget curl git telnet sysstat tar less iputils-ping iproute2 screen tmux jq
+apt install -y lrzsz tree vim dnsutils zip unzip wget curl git telnet sysstat tar less  screen tmux jq
+# iputils-ping iproute2
 #apt install -y  python3 python3-dev python3-pip mysql-client libmysqlclient-dev 
 
 curl -s -o /tmp/vimrc https://cdn.jsdelivr.net/gh/WillGhost/op/vimrc && \
@@ -22,7 +23,7 @@ curl -s -o /tmp/bashrc https://cdn.jsdelivr.net/gh/WillGhost/op/bashrc && \
   cat ~/.bashrc |grep history-search-backward || cat /tmp/bashrc >> ~/.bashrc
 
 
-mkdir /root/.pip/ && echo '[global]\nindex-url = https://mirrors.aliyun.com/pypi/simple' > ~/.pip/pip.conf
+#mkdir /root/.pip/ && echo '[global]\nindex-url = https://mirrors.aliyun.com/pypi/simple' > ~/.pip/pip.conf
 #pip3 install ipython && \
 
 ls /etc/rc.local || echo '#!/usr/bin/bash' > /etc/rc.local
@@ -36,3 +37,6 @@ chmod +x /usr/local/sbin/nexttrace
 #  rm -rf /usr/local/go && tar -C /usr/local -xzf go1.16.3.linux-amd64.tar.gz && \
 #  rm -f go1.16.3.linux-amd64.tar.gz
 #ENV PATH=$PATH:/usr/local/go/bin
+
+grep bbr /etc/sysctl.conf || echo -e "net.core.default_qdisc=fq\nnet.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+sysctl -p
