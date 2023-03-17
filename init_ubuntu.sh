@@ -38,5 +38,6 @@ chmod +x /usr/local/sbin/nexttrace
 #  rm -f go1.16.3.linux-amd64.tar.gz
 #ENV PATH=$PATH:/usr/local/go/bin
 
-grep bbr /etc/sysctl.conf || echo -e "net.core.default_qdisc=fq\nnet.ipv4.tcp_congestion_control=bbr" >> /etc/sysctl.conf
+grep bbr /etc/sysctl.conf || echo 'net.core.default_qdisc=fq'  >> /etc/sysctl.conf
+grep tcp_congestion_control  /etc/sysctl.conf || echo 'net.ipv4.tcp_congestion_control=bbr' >> /etc/sysctl.conf
 sysctl -p
