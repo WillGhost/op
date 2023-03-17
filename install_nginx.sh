@@ -1,7 +1,7 @@
 #!/bin/bash
 
 installdir="/opt/nginx"
-version=1.18.0
+version=1.20.2
 
 #dnf -yq pcre-devel openssl-devel gcc make wget
 
