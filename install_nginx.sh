@@ -13,6 +13,7 @@ tar zxf nginx-$version.tar.gz
 
 cd nginx-$version
 
+
 ./configure \
 --prefix=$installdir \
 --with-http_ssl_module \
@@ -22,9 +23,9 @@ cd nginx-$version
 --with-stream_ssl_module \
 --with-stream_ssl_preread_module \
 --with-http_gzip_static_module \
---with-http_v2_module > /dev/null \
-&& make > /dev/null && make install > /dev/null
-
+--with-http_v2_module \
+--with-http_sub_module \
+&& make && make install 
 
 /opt/nginx/sbin/nginx
 

@@ -13,11 +13,11 @@ iptables -A INPUT -p udp --dport 68 -j ACCEPT
 iptables -A INPUT -p udp --dport 546 -j ACCEPT
 iptables -A INPUT -i lo -j ACCEPT
 iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
-iptables -A INPUT -j REJECT --reject-with icmp-host-prohibited
+iptables -A INPUT -j REJECT
 
 
 
-ip6tables -F INPUT
+ip6tables -F
 ip6tables -A INPUT -p tcp --dport 80 -j ACCEPT
 ip6tables -A INPUT -p tcp --dport 443 -j ACCEPT
 ip6tables -A INPUT -p tcp --dport 8000:9000 -j ACCEPT
@@ -37,10 +37,11 @@ iptables -F -t nat
 iptables -t nat -A PREROUTING  -p udp --dport 40000:50000 -j DNAT --to-destination :443
 
 
+my_ip=103.233.0.9
+
 in_port=3750
 out_ip=201.18.104.105
 out_port=22
-my_ip=103.233.0.9
 iptables -t nat -A PREROUTING -p tcp --dport $in_port -j DNAT --to-destination $out_ip:$out_port
 iptables -t nat -A POSTROUTING -d $out_ip -p tcp --dport $out_port -j SNAT --to-source $my_ip
 

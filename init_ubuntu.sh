@@ -11,8 +11,8 @@ apt update
 ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
 
 
-apt install -y lrzsz tree vim dnsutils zip unzip wget curl git telnet sysstat tar less  screen tmux jq
-# iputils-ping iproute2
+apt install -y lrzsz tree vim dnsutils zip unzip wget curl telnet sysstat tar less screen tmux jq iptables
+# iputils-ping iproute2 git
 #apt install -y  python3 python3-dev python3-pip mysql-client libmysqlclient-dev 
 
 curl -s -o /tmp/vimrc https://cdn.jsdelivr.net/gh/WillGhost/op/vimrc && \
