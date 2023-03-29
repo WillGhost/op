@@ -1,0 +1,12 @@
+[Unit]
+Description=XRay Service
+After=network.target
+
+[Service]
+##User=nobody
+ExecStart=/opt/fly/xray -c /opt/fly/xr.json
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
