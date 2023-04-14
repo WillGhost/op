@@ -7,7 +7,7 @@ Plug 'luochen1990/rainbow'
 Plug 'Valloric/YouCompleteMe'
 Plug 'tomlion/vim-solidity'
 
-
+" cd ~/.vim/plugged/YouCompleteMe && ./install.py --go-completer
 call plug#end()
 
 "vim-go插件快捷键
