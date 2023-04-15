@@ -11,19 +11,21 @@ Plug 'tomlion/vim-solidity'
 call plug#end()
 
 "vim-go插件快捷键
-au FileType go nmap <C-d> <Plug>(go-def-vertical)
+"au FileType go nmap <C-d> <Plug>(go-def-vertical)
 au FileType go nmap <C-f> <Plug>(go-implements)
 "au FileType go nmap <C-f> :GoImplements <cr>
 au FileType go nmap <C-e> :GoReferrers <cr>
 
 let g:ycm_goto_buffer_command = 'split'
+au FileType go nmap <C-d> :aboveleft vertical YcmCompleter GoToDefinition <cr>
 au FileType python nmap <C-d> :aboveleft vertical YcmCompleter GoToDefinition <cr>
+au FileType javascript nmap <C-d> :aboveleft vertical YcmCompleter GoToDefinition <cr>
 
 set backspace=2 " 解决插入模式下delete/backspce键失效问题
 set completeopt-=preview "关闭YCM顶部预览
 let g:ycm_auto_hover=''
 "let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_filetype_whitelist = {"go": 1, "python": 1}
+let g:ycm_filetype_whitelist = {"go": 1, "python": 1, "javascript": 1}
 
 
 "启动括号颜色
