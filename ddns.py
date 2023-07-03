@@ -29,6 +29,7 @@ gg = r.json()
 identifier = gg['result'][0]['id']
 old =  gg['result'][0]['content']
 
+# 6.ipw.cn
 myip = requests.get('http://v6.ipv6-test.com/api/myip.php').text
 print('--------myip', myip)
 
