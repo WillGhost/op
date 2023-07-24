@@ -23,6 +23,7 @@ curl -s -o /tmp/vimrc https://cdn.jsdelivr.net/gh/WillGhost/op/vimrc && \
 cp  ~/.bashrc  ~/.bashrc_$(date +%Y%m%d%H%M%S)
 curl -s -o ~/.bashrc https://cdn.jsdelivr.net/gh/WillGhost/op/bashrc
 
+ls /etc/iptables.sh || curl -L -o /etc/iptables.sh  https://cdn.jsdelivr.net/gh/WillGhost/op/iptables.sh
 
 
 #mkdir /root/.pip/ && echo '[global]\nindex-url = https://mirrors.aliyun.com/pypi/simple' > ~/.pip/pip.conf
