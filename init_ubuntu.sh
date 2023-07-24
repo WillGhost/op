@@ -18,8 +18,11 @@ curl -s -o /tmp/vimrc https://cdn.jsdelivr.net/gh/WillGhost/op/vimrc && \
   grep -n =========== /tmp/vimrc |awk -F: '{print $1}' |xargs -I {} sed -n '{},1000p' /tmp/vimrc > ~/.vimrc && \
   rm -f /tmp/vimrc
 
-curl -s -o /tmp/bashrc https://cdn.jsdelivr.net/gh/WillGhost/op/bashrc && \
-  cat ~/.bashrc |grep history-search-backward || cat /tmp/bashrc >> ~/.bashrc
+#curl -s -o /tmp/bashrc https://cdn.jsdelivr.net/gh/WillGhost/op/bashrc && \
+#  cat ~/.bashrc |grep history-search-backward || cat /tmp/bashrc >> ~/.bashrc
+cp  ~/.bashrc  ~/.bashrc_$(date +%Y%m%d%H%M%S)
+curl -s -o ~/.bashrc https://cdn.jsdelivr.net/gh/WillGhost/op/bashrc
+
 
 
 #mkdir /root/.pip/ && echo '[global]\nindex-url = https://mirrors.aliyun.com/pypi/simple' > ~/.pip/pip.conf
