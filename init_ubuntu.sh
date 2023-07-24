@@ -45,6 +45,7 @@ grep bbr /etc/sysctl.conf || echo 'net.core.default_qdisc=fq'  >> /etc/sysctl.co
 grep tcp_congestion_control  /etc/sysctl.conf || echo 'net.ipv4.tcp_congestion_control=bbr' >> /etc/sysctl.conf
 sysctl -p
 
+sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 30/' /etc/ssh/sshd_config
 
 
 exit 0
