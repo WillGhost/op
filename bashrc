@@ -119,3 +119,6 @@ export HISTCONTROL="ignoredups"
 
 #export TERM='xterm-256color'
 alias rm='rm -i'
+alias mv='mv -i'
+
+export EDITOR=/usr/bin/vim
