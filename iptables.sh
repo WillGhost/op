@@ -35,8 +35,8 @@ ip6tables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
 ip6tables -A INPUT -j REJECT
 
 
-iptables -F -t nat
-iptables -t nat -A PREROUTING  -p udp --dport 40000:50000 -j DNAT --to-destination :443
+#iptables -F -t nat
+#iptables -t nat -A PREROUTING  -p udp --dport 40000:50000 -j DNAT --to-destination :443
 
 
 #my_ip=103.233.0.9
