@@ -3,6 +3,7 @@
 iptables -F
 iptables -A INPUT -p tcp --dport 80 -j ACCEPT
 iptables -A INPUT -p tcp --dport 443 -j ACCEPT
+iptables -A INPUT -p udp --dport 443 -j ACCEPT
 iptables -A INPUT -p tcp --dport 8000:9000 -j ACCEPT
 iptables -A INPUT -p udp --dport 20000:50000 -j ACCEPT
 iptables -A INPUT -p icmp -j ACCEPT
@@ -21,6 +22,7 @@ iptables -A INPUT -j REJECT
 ip6tables -F
 ip6tables -A INPUT -p tcp --dport 80 -j ACCEPT
 ip6tables -A INPUT -p tcp --dport 443 -j ACCEPT
+ip6tables -A INPUT -p udp --dport 443 -j ACCEPT
 ip6tables -A INPUT -p tcp --dport 8000:9000 -j ACCEPT
 ip6tables -A INPUT -p udp --dport 20000:50000 -j ACCEPT
 ip6tables -A INPUT -p ipv6-icmp -j ACCEPT
