@@ -48,7 +48,7 @@ chmod +x /usr/local/sbin/nexttrace
 #ENV PATH=$PATH:/usr/local/go/bin
 
 
-sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 30/' /etc/ssh/sshd_config
+sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 130/' /etc/ssh/sshd_config
 
 
 grep "* soft nofile  1000000" /etc/security/limits.conf || echo "
