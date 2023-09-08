@@ -47,6 +47,7 @@ chmod +x /usr/local/sbin/nexttrace
 #  rm -f go1.16.3.linux-amd64.tar.gz
 #ENV PATH=$PATH:/usr/local/go/bin
 
+groupadd -g 2000 hehe && useradd -m -g 2000 -u 2000 hehe -s /bin/bash && cp /root/.bashrc /home/hehe/.bashrc && cp /root/.vimrc /home/hehe/.vimrc && chown -R hehe /home/hehe/
 
 sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 130/' /etc/ssh/sshd_config
 
