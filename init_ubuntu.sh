@@ -49,7 +49,7 @@ chmod +x /usr/local/sbin/nexttrace
 
 groupadd -g 2000 hehe && useradd -m -g 2000 -u 2000 hehe -s /bin/bash && cp /root/.bashrc /home/hehe/.bashrc && cp /root/.vimrc /home/hehe/.vimrc && chown -R hehe /home/hehe/
 
-sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 130/' /etc/ssh/sshd_config
+grep '^ClientAliveInterval' /etc/ssh/sshd_config || sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 120/' /etc/ssh/sshd_config
 
 
 grep "* soft nofile  1000000" /etc/security/limits.conf || echo "

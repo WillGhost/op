@@ -27,6 +27,8 @@ cd nginx-$version
 --with-http_sub_module \
 && make && make install 
 
+curl -L -o /opt/nginx/conf/nginx.conf  https://cdn.jsdelivr.net/gh/WillGhost/op/nginx.conf
+
 /opt/nginx/sbin/nginx
 
 grep nginx /etc/rc.local || echo '/opt/nginx/sbin/nginx' >> /etc/rc.local
