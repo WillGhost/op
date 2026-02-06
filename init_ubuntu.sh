@@ -35,7 +35,8 @@ ls /etc/rc.local || echo '#!/usr/bin/bash' > /etc/rc.local
 chmod +x /etc/rc.local
 systemctl enable rc-local
 
-curl -L -o /usr/local/sbin/nexttrace https://github.com/sjlleo/nexttrace/releases/download/v1.3.0/nexttrace_linux_amd64
+NEXTTRACE_VERSION=$(curl -sL https://api.github.com/repos/sjlleo/nexttrace/releases/latest | jq -r .tag_name)
+curl -L -o /usr/local/sbin/nexttrace https://github.com/sjlleo/nexttrace/releases/download/${NEXTTRACE_VERSION}/nexttrace_linux_amd64
 chmod +x /usr/local/sbin/nexttrace 
 
 # apt-get install tcptraceroute
