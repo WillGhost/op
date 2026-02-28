@@ -10,7 +10,7 @@ apt update
 ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
 
 
-apt install -y lrzsz tree vim dnsutils zip unzip wget curl telnet sysstat tar less screen tmux jq iptables
+apt install -y lrzsz tree vim dnsutils zip unzip wget curl telnet sysstat tar less screen tmux jq iptables rsync
 # iputils-ping iproute2 git
 #apt install -y  python3 python3-dev python3-pip mysql-client libmysqlclient-dev 
 
@@ -27,6 +27,14 @@ grep history-search-backward ~/.bashrc || ( cp  ~/.bashrc  ~/.bashrc_$(date +%Y%
 
 ls /etc/iptables.sh || curl -L -o /etc/iptables.sh  https://cdn.jsdelivr.net/gh/WillGhost/op/iptables.sh
 
+echo '# 允许 Tab 键循环遍历补全候选项
+"\t": menu-complete
+# 允许 Shift+Tab 反向循环（可选）
+"\e[Z": menu-complete-backward
+
+# 关键：开启菜单完成显示，并配合颜色区分
+set show-all-if-ambiguous on
+set menu-complete-display-prefix on' > ~/.inputrc
 
 #mkdir /root/.pip/ && echo '[global]\nindex-url = https://mirrors.aliyun.com/pypi/simple' > ~/.pip/pip.conf
 #pip3 install ipython && \
