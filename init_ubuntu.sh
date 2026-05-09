@@ -60,6 +60,9 @@ groupadd -g 2000 hehe && useradd -m -g 2000 -u 2000 hehe -s /bin/bash && cp /roo
 
 grep '^ClientAliveInterval' /etc/ssh/sshd_config || sed -i 's/#ClientAliveInterval 0/ClientAliveInterval 120/' /etc/ssh/sshd_config
 
+grep '^SystemMaxUse' /etc/systemd/journald.conf || echo 'SystemMaxUse=2G' >> '/etc/systemd/journald.conf'
+grep '^RuntimeMaxUse' /etc/systemd/journald.conf || echo 'RuntimeMaxUse=30M' >> '/etc/systemd/journald.conf'
+grep '^MaxRetentionSec' /etc/systemd/journald.conf || echo 'MaxRetentionSec=10day' >> '/etc/systemd/journald.conf'
 
 grep "* soft nofile  1000000" /etc/security/limits.conf || echo "
 * soft nofile  1000000
@@ -90,8 +93,8 @@ sed -i '/net.ipv4.udp_rmem_min/d' /etc/sysctl.conf
 sed -i '/net.ipv4.udp_wmem_min/d' /etc/sysctl.conf
 
 cat >> /etc/sysctl.conf << EOF
-net.core.rmem_max=8519680
-net.core.wmem_max=8519680
+net.core.rmem_max=16777216
+net.core.wmem_max=16777216
 net.ipv4.tcp_rmem=4096 131072 16777216
 net.ipv4.tcp_wmem=4096 16384 16777216
 net.ipv4.udp_rmem_min=8192
