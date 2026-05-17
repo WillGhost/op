@@ -13,6 +13,8 @@ else
     echo "Using Nginx legacy version: $version"
 fi
 
+version=1.30.1
+
 #dnf -yq pcre-devel openssl-devel gcc make wget
 
 apt install -yq gcc wget libpcre3-dev libssl-dev zlib1g-dev make
