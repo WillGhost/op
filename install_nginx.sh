@@ -1,30 +1,33 @@
 #!/bin/bash
-
 installdir="/opt/nginx"
 
-# 动态获取最新 Legacy 版本
-version=$(curl -s http://nginx.org/en/download.html | grep -A 10 "Legacy version" | grep -oP 'nginx-\K[0-9]+\.[0-9]+\.[0-9]+(?=\.tar\.gz)' | head -1)
+# 动态获取最新 Stable 版本
+version=$(curl -s https://nginx.org/en/download.html | grep -A 5 "Stable version" | grep -oP 'nginx-\K[0-9]+\.[0-9]+\.[0-9]+(?=\.tar\.gz)' | head -1)
 
-# 如果获取失败，使用默认版本
 if [ -z "$version" ]; then
-    version=1.26.3
-    echo "Warning: Failed to fetch latest legacy version, using default: $version"
+    version=1.30.2
+    echo "Warning: Failed to fetch latest stable version, using default: $version"
 else
-    echo "Using Nginx legacy version: $version"
+    echo "Using Nginx stable version: $version"
 fi
 
-version=1.30.1
-
-#dnf -yq pcre-devel openssl-devel gcc make wget
+# 判断是否已安装
+if [ -f "$installdir/sbin/nginx" ]; then
+    echo "Nginx already installed, upgrading..."
+    $installdir/sbin/nginx -s quit 2>/dev/null || true
+    sleep 2
+    UPGRADE=1
+else
+    echo "Fresh install..."
+    UPGRADE=0
+fi
 
 apt install -yq gcc wget libpcre3-dev libssl-dev zlib1g-dev make
 
-cd /tmp
-wget -q  http://nginx.org/download/nginx-$version.tar.gz
+cd /var/tmp/
+wget -q http://nginx.org/download/nginx-$version.tar.gz
 tar zxf nginx-$version.tar.gz
-
 cd nginx-$version
-
 
 ./configure \
 --prefix=$installdir \
@@ -45,12 +48,22 @@ cd nginx-$version
 --with-stream_ssl_module \
 --with-stream_ssl_preread_module \
 --with-stream_realip_module \
-&& make -j$(nproc) && make install 
+|| { echo "Configure failed"; exit 1; }
 
-curl -L -o /opt/nginx/conf/nginx.conf  https://cdn.jsdelivr.net/gh/WillGhost/op/nginx.conf
+make -j$(nproc) || { echo "Build failed"; exit 1; }
 
-/opt/nginx/sbin/nginx
+if [ "$UPGRADE" -eq 1 ]; then
+    cp $installdir/sbin/nginx /var/tmp/nginx.bak
+    make install
+else
+    make install
+    curl -L -o $installdir/conf/nginx.conf https://cdn.jsdelivr.net/gh/WillGhost/op/nginx.conf
+fi
 
-grep nginx /etc/rc.local || echo '/opt/nginx/sbin/nginx' >> /etc/rc.local
+$installdir/sbin/nginx -t || { echo "Config test failed, nginx not started"; exit 1; }
+$installdir/sbin/nginx
 
+grep -q nginx /etc/rc.local || echo "$installdir/sbin/nginx" >> /etc/rc.local
 
+echo "Done. Nginx $version installed at $installdir"
+$installdir/sbin/nginx -v
