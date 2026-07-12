@@ -14,7 +14,7 @@ fi
 # 判断是否已安装
 if [ -f "$installdir/sbin/nginx" ]; then
     echo "Nginx already installed, upgrading..."
-    $installdir/sbin/nginx -s quit 2>/dev/null || true
+    $installdir/sbin/nginx -s stop || true
     sleep 2
     UPGRADE=1
 else
@@ -22,7 +22,7 @@ else
     UPGRADE=0
 fi
 
-apt install -yq gcc wget libpcre3-dev libssl-dev zlib1g-dev make
+apt install -yq gcc wget libpcre2-dev libssl-dev zlib1g-dev make
 
 cd /var/tmp/
 wget -q http://nginx.org/download/nginx-$version.tar.gz

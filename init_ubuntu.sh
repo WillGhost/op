@@ -5,7 +5,7 @@ export LANG=C.UTF-8
 #sed -i 's/archive.ubuntu.com/mirrors.aliyun.com/g' /etc/apt/sources.list
 
 apt update
-#apt upgrade
+DEBIAN_FRONTEND=noninteractive apt upgrade -y
 #apt install -y tzdata
 ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
 
@@ -24,6 +24,10 @@ fi
 
 
 grep history-search-backward ~/.bashrc || ( cp  ~/.bashrc  ~/.bashrc_$(date +%Y%m%d%H%M%S) && curl -s -o ~/.bashrc https://cdn.jsdelivr.net/gh/WillGhost/op/bashrc )
+
+grep -q '^export HISTCONTROL=' ~/.bashrc \
+  && sed -i 's/^export HISTCONTROL=.*/export HISTCONTROL="erasedups"/' ~/.bashrc \
+  || echo 'export HISTCONTROL="erasedups"' >> ~/.bashrc
 
 ls /etc/iptables.sh || curl -L -o /etc/iptables.sh  https://cdn.jsdelivr.net/gh/WillGhost/op/iptables.sh
 
@@ -93,12 +97,17 @@ sed -i '/net.ipv4.udp_rmem_min/d' /etc/sysctl.conf
 sed -i '/net.ipv4.udp_wmem_min/d' /etc/sysctl.conf
 
 cat >> /etc/sysctl.conf << EOF
-net.core.rmem_max=16777216
-net.core.wmem_max=16777216
-net.ipv4.tcp_rmem=4096 131072 16777216
-net.ipv4.tcp_wmem=4096 16384 16777216
-net.ipv4.udp_rmem_min=8192
-net.ipv4.udp_wmem_min=8192
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+net.ipv4.tcp_rmem = 4096 131072 16777216
+net.ipv4.tcp_wmem = 4096 16384 16777216
+net.ipv4.udp_rmem_min = 8192
+net.ipv4.udp_wmem_min = 8192
+net.core.default_qdisc = fq
+net.ipv4.tcp_congestion_control = bbr
+net.ipv4.tcp_fin_timeout = 15
+net.core.somaxconn = 4096
+net.ipv4.tcp_max_syn_backlog = 8192
 EOF
 
 grep bbr /etc/sysctl.conf || echo 'net.core.default_qdisc=fq'  >> /etc/sysctl.conf
