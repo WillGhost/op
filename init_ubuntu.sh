@@ -29,6 +29,8 @@ grep -q '^export HISTCONTROL=' ~/.bashrc \
   && sed -i 's/^export HISTCONTROL=.*/export HISTCONTROL="erasedups"/' ~/.bashrc \
   || echo 'export HISTCONTROL="erasedups"' >> ~/.bashrc
 
+grep 'PROCPS_FROMLEN' ~/.bashrc || echo 'export PROCPS_FROMLEN=43' >> ~/.bashrc
+
 ls /etc/iptables.sh || curl -L -o /etc/iptables.sh  https://cdn.jsdelivr.net/gh/WillGhost/op/iptables.sh
 
 echo '# 允许 Tab 键循环遍历补全候选项
