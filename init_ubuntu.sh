@@ -91,14 +91,13 @@ root soft memlock unlimited
 " > /etc/security/limits.conf
 
 
-sed -i '/net.ipv4.tcp_rmem/d' /etc/sysctl.conf
-sed -i '/net.ipv4.tcp_wmem/d' /etc/sysctl.conf
-sed -i '/net.core.rmem_max/d' /etc/sysctl.conf
-sed -i '/net.core.wmem_max/d' /etc/sysctl.conf
-sed -i '/net.ipv4.udp_rmem_min/d' /etc/sysctl.conf
-sed -i '/net.ipv4.udp_wmem_min/d' /etc/sysctl.conf
+# Debian 13 起 systemd-sysctl 不再读 /etc/sysctl.conf，统一写到 /etc/sysctl.d/（Ubuntu 同样生效）
+# 清掉旧版本脚本写进 /etc/sysctl.conf 的同名项，避免两处配置打架
+if [ -f /etc/sysctl.conf ]; then
+    sed -i -E '/^\s*net\.(core\.(rmem_max|wmem_max|default_qdisc|somaxconn)|ipv4\.(tcp_rmem|tcp_wmem|udp_rmem_min|udp_wmem_min|tcp_congestion_control|tcp_fin_timeout|tcp_max_syn_backlog))\s*=/d' /etc/sysctl.conf
+fi
 
-cat >> /etc/sysctl.conf << EOF
+cat > /etc/sysctl.d/99-tuning.conf << EOF
 net.core.rmem_max = 16777216
 net.core.wmem_max = 16777216
 net.ipv4.tcp_rmem = 4096 131072 16777216
@@ -112,9 +111,8 @@ net.core.somaxconn = 4096
 net.ipv4.tcp_max_syn_backlog = 8192
 EOF
 
-grep bbr /etc/sysctl.conf || echo 'net.core.default_qdisc=fq'  >> /etc/sysctl.conf
-grep tcp_congestion_control  /etc/sysctl.conf || echo 'net.ipv4.tcp_congestion_control=bbr' >> /etc/sysctl.conf
-sysctl -p
+sysctl --system > /dev/null
+sysctl net.ipv4.tcp_congestion_control net.core.default_qdisc
 
 ls ~/.ssh/ || (mkdir ~/.ssh && chmod 700 ~/.ssh)
 
