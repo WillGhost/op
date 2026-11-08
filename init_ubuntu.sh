@@ -7,7 +7,7 @@ export LANG=C.UTF-8
 apt update
 DEBIAN_FRONTEND=noninteractive apt upgrade -y
 #apt install -y tzdata
-ln -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && echo 'Asia/Shanghai' > /etc/timezone
+ln -snf /usr/share/zoneinfo/Asia/Singapore /etc/localtime && echo 'Asia/Singapore' > /etc/timezone
 
 
 apt install -y lrzsz tree vim dnsutils zip unzip wget curl telnet sysstat tar less screen jq iptables rsync vnstat iftop nethogs
@@ -90,12 +90,6 @@ root hard memlock unlimited
 root soft memlock unlimited
 " > /etc/security/limits.conf
 
-
-# Debian 13 起 systemd-sysctl 不再读 /etc/sysctl.conf，统一写到 /etc/sysctl.d/（Ubuntu 同样生效）
-# 清掉旧版本脚本写进 /etc/sysctl.conf 的同名项，避免两处配置打架
-if [ -f /etc/sysctl.conf ]; then
-    sed -i -E '/^\s*net\.(core\.(rmem_max|wmem_max|default_qdisc|somaxconn)|ipv4\.(tcp_rmem|tcp_wmem|udp_rmem_min|udp_wmem_min|tcp_congestion_control|tcp_fin_timeout|tcp_max_syn_backlog))\s*=/d' /etc/sysctl.conf
-fi
 
 cat > /etc/sysctl.d/99-tuning.conf << EOF
 net.core.rmem_max = 16777216
